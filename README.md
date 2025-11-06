@@ -119,13 +119,19 @@ describe('MyComponent', () => {
 
 ## 质量与提交前钩子
 
+两种方式二选一：
+
+1) 本仓库自带原生 Git hook（轻量推荐）
+
 ```bash
-pre-commit install
+bash scripts/install-git-hooks.sh   # 安装 pre-commit（仅跑 pnpm run fmt:check）
 ```
 
-- 代码风格：Prettier（见 `.pre-commit-config.yaml` / `.prettierignore`）
-- 统一包管理：`packageManager: pnpm@9`
-- CI：`web/.github/workflows/ci.yml` 使用 pnpm@9，构建并上传 `web/dist` 工件
+2) 如果你已使用 pre-commit 框架，可继续沿用（需自行维护配置）
+
+- 代码风格：Prettier（见 `.prettierignore`）
+- 统一包管理：`packageManager: pnpm@9.0.0`（Corepack）
+- CI：`web/.github/workflows/ci.yml` 已包含 Format/Lint/Test 和可选 E2E
 
 ## 故障排查
 
