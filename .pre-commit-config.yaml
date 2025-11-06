@@ -11,4 +11,4 @@ repos:
     rev: v3.1.0
     hooks:
       - id: prettier
-        additional_dependencies: ["prettier@3.1.0"]
+        additional_dependencies: ['prettier@3.1.0']

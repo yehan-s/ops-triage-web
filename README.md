@@ -39,6 +39,7 @@ pnpm e2e
   - 调用 `POST /triage`，展示 `{ routeMatch, owners, domain, suggestions, ... }` 的 JSON
 
 实现参考：
+
 - `src/lib/api.ts`（封装 `get/post`，基于 `VITE_API_BASE_URL`）
 - `src/pages/*.tsx`（React Router + antd + React Query）
 
@@ -54,6 +55,7 @@ pnpm preview -- --port 5173
 ## 代码质量检查
 
 ### ESLint（代码检查）
+
 ```bash
 # 检查代码问题
 pnpm run lint
@@ -63,6 +65,7 @@ pnpm run lint:fix
 ```
 
 ### Prettier（格式化）
+
 ```bash
 # 格式化代码
 pnpm run fmt
@@ -74,6 +77,7 @@ pnpm run fmt:check
 ## 测试
 
 ### 运行测试
+
 ```bash
 # 运行所有测试
 pnpm test
@@ -89,12 +93,14 @@ pnpm test:coverage
 ```
 
 ### 测试框架
+
 - **Vitest**: 快速的单元测试框架
 - **@testing-library/react**: React 组件测试
 - **@testing-library/user-event**: 模拟用户交互
 - **@testing-library/jest-dom**: 扩展断言
 
 ### 编写测试
+
 测试文件放在 `__tests__` 目录或使用 `.test.ts(x)` 后缀：
 
 ```typescript
