@@ -16,8 +16,8 @@
     "test:coverage": "vitest run --coverage",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
-    "fmt": "prettier --write 'src/**/*.{ts,tsx,json,css}'",
-    "fmt:check": "prettier --check 'src/**/*.{ts,tsx,json,css}'"
+    "fmt": "prettier --write .",
+    "fmt:check": "prettier --check ."
   },
   "dependencies": {
     "@tanstack/react-query": "^5.56.2",

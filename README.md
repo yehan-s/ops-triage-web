@@ -39,6 +39,7 @@ pnpm e2e
   - 调用 `POST /triage`，展示 `{ routeMatch, owners, domain, suggestions, ... }` 的 JSON
 
 实现参考：
+
 - `src/lib/api.ts`（封装 `get/post`，基于 `VITE_API_BASE_URL`）
 - `src/pages/*.tsx`（React Router + antd + React Query）
 
@@ -54,6 +55,7 @@ pnpm preview -- --port 5173
 ## 代码质量检查
 
 ### ESLint（代码检查）
+
 ```bash
 # 检查代码问题
 pnpm run lint
@@ -63,6 +65,7 @@ pnpm run lint:fix
 ```
 
 ### Prettier（格式化）
+
 ```bash
 # 格式化代码
 pnpm run fmt
@@ -74,6 +77,7 @@ pnpm run fmt:check
 ## 测试
 
 ### 运行测试
+
 ```bash
 # 运行所有测试
 pnpm test
@@ -89,12 +93,14 @@ pnpm test:coverage
 ```
 
 ### 测试框架
+
 - **Vitest**: 快速的单元测试框架
 - **@testing-library/react**: React 组件测试
 - **@testing-library/user-event**: 模拟用户交互
 - **@testing-library/jest-dom**: 扩展断言
 
 ### 编写测试
+
 测试文件放在 `__tests__` 目录或使用 `.test.ts(x)` 后缀：
 
 ```typescript
@@ -113,13 +119,19 @@ describe('MyComponent', () => {
 
 ## 质量与提交前钩子
 
+两种方式二选一：
+
+1) 本仓库自带原生 Git hook（轻量推荐）
+
 ```bash
-pre-commit install
+bash scripts/install-git-hooks.sh   # 安装 pre-commit（仅跑 pnpm run fmt:check）
 ```
 
-- 代码风格：Prettier（见 `.pre-commit-config.yaml` / `.prettierignore`）
-- 统一包管理：`packageManager: pnpm@9`
-- CI：`web/.github/workflows/ci.yml` 使用 pnpm@9，构建并上传 `web/dist` 工件
+2) 如果你已使用 pre-commit 框架，可继续沿用（需自行维护配置）
+
+- 代码风格：Prettier（见 `.prettierignore`）
+- 统一包管理：`packageManager: pnpm@9.0.0`（Corepack）
+- CI：`web/.github/workflows/ci.yml` 已包含 Format/Lint/Test 和可选 E2E
 
 ## 故障排查
 
