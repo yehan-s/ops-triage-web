@@ -12,10 +12,10 @@ import Triage from './pages/Triage'
 const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
-  { path: '/', element: <IndexPage/> },
-  { path: '/git/projects', element: <Projects/> },
-  { path: '/git/branches/:projectId', element: <Branches/> },
-  { path: '/triage', element: <Triage/> },
+  { path: '/', element: <IndexPage /> },
+  { path: '/git/projects', element: <Projects /> },
+  { path: '/git/branches/:projectId', element: <Branches /> },
+  { path: '/triage', element: <Triage /> },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
