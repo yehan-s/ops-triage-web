@@ -13,6 +13,16 @@ cp .env.example .env             # 确认 API 地址
 pnpm dev                         # Vite 启动在 http://localhost:5173
 ```
 
+### 前后端联调 E2E（Playwright）
+
+```bash
+# 确保 server 依赖已安装，并在 web 仓库同级存在 ../server
+pnpm -C ../server install
+
+# 运行 E2E：会自动在随机端口启动后端，并用该地址启动 Vite
+pnpm e2e
+```
+
 - 服务端对应：`VITE_API_BASE_URL=http://localhost:7000`（与后端端口一致）
 - 一键联调：参考根目录 `scripts/dev.sh` 同时启动 server+web
 
@@ -60,6 +70,46 @@ pnpm run fmt
 # 检查格式（CI 使用）
 pnpm run fmt:check
 ```
+
+## 测试
+
+### 运行测试
+```bash
+# 运行所有测试
+pnpm test
+
+# 监听模式（开发时推荐）
+pnpm test:watch
+
+# UI 界面（可视化测试结果）
+pnpm test:ui
+
+# 生成覆盖率报告
+pnpm test:coverage
+```
+
+### 测试框架
+- **Vitest**: 快速的单元测试框架
+- **@testing-library/react**: React 组件测试
+- **@testing-library/user-event**: 模拟用户交互
+- **@testing-library/jest-dom**: 扩展断言
+
+### 编写测试
+测试文件放在 `__tests__` 目录或使用 `.test.ts(x)` 后缀：
+
+```typescript
+import { render, screen } from '@testing-library/react'
+import { describe, it, expect } from 'vitest'
+
+describe('MyComponent', () => {
+  it('should render correctly', () => {
+    render(<MyComponent />)
+    expect(screen.getByText('Hello')).toBeInTheDocument()
+  })
+})
+```
+
+参考示例：`src/lib/__tests__/api.test.ts`
 
 ## 质量与提交前钩子
 
