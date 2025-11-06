@@ -7,6 +7,7 @@ React + Vite 的前端，提供 Git 项目选择、分支索引触发与 URL 分
 要求：Node.js 20、pnpm@9
 
 ```bash
+corepack enable && corepack prepare pnpm@9.0.0 --activate
 pnpm install
 cp .env.example .env             # 确认 API 地址
 pnpm dev                         # Vite 启动在 http://localhost:5173
@@ -39,6 +40,26 @@ pnpm preview -- --port 5173
 ```
 
 产物默认在 `web/dist`。
+
+## 代码质量检查
+
+### ESLint（代码检查）
+```bash
+# 检查代码问题
+pnpm run lint
+
+# 自动修复问题
+pnpm run lint:fix
+```
+
+### Prettier（格式化）
+```bash
+# 格式化代码
+pnpm run fmt
+
+# 检查格式（CI 使用）
+pnpm run fmt:check
+```
 
 ## 质量与提交前钩子
 
