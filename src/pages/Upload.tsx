@@ -1,7 +1,7 @@
 import React from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { post } from '../lib/api'
-import { Button, Space, Typography, Upload, Input, message, Alert } from 'antd'
+import { Button, Space, Typography, Upload, Input, message, Alert, Switch, Divider } from 'antd'
 import type { UploadFile } from 'antd/es/upload/interface'
 import { useNavigate } from 'react-router-dom'
 
