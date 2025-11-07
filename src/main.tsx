@@ -10,6 +10,8 @@ const IndexPage = lazy(() => import('./pages/IndexPage'))
 const Projects = lazy(() => import('./pages/Projects'))
 const Branches = lazy(() => import('./pages/Branches'))
 const Triage = lazy(() => import('./pages/Triage'))
+const OfflineProjects = lazy(() => import('./pages/OfflineProjects'))
+const UploadPage = lazy(() => import('./pages/Upload'))
 
 const queryClient = new QueryClient()
 
