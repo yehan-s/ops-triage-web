@@ -7,8 +7,15 @@ export default function Triage() {
   const [url, setUrl] = React.useState('')
   const [logs, setLogs] = React.useState('')
   const { data: projects } = useQuery({
-    queryKey: ['offline-projects'],
-    queryFn: () => get<{ projects: { key: string; alias: string }[] }>('/offline/projects'),
+    queryKey: ['projects'],
+    queryFn: async () => {
+      try {
+        return await get<{ projects: { key: string; alias: string; branch?: string }[] }>('/projects')
+      } catch {
+        // 兼容旧后端：回退到 /offline/projects
+        return await get<{ projects: { key: string; alias: string; branch?: string }[] }>('/offline/projects')
+      }
+    },
   })
   const [project, setProject] = React.useState<string | undefined>(undefined)
   const triage = useMutation({
