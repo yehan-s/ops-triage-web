@@ -20,6 +20,20 @@ export default function IndexPage() {
           <Button>离线项目管理</Button>
         </Link>
       </Space>
+      <Typography.Paragraph type="secondary" style={{ marginTop: 8 }}>
+        CLI 快捷：在 <code>server/</code> 目录运行
+        <br />
+        <code>pnpm index-offline -- --server http://localhost:7000 ./your.zip</code>
+        ，更多用法见
+        <a
+          style={{ marginLeft: 6 }}
+          href="https://github.com/yehan-s/ops-triage-server#%E7%A6%BB%E7%BA%BF%E6%A8%A1%E5%BC%8F%E6%94%AF%E6%8C%81-ui-%E4%B8%8E-cli"
+          target="_blank"
+          rel="noreferrer"
+        >
+          离线模式说明
+        </a>
+      </Typography.Paragraph>
     </Space>
   )
 }
