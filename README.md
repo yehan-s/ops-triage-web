@@ -6,6 +6,8 @@ React + Vite 的前端，提供 Git 项目选择、分支索引触发与 URL 分
 
 要求：Node.js 20、pnpm@9
 
+完整指南见 docs/quickstart.md，核心步骤如下：
+
 ```bash
 corepack enable && corepack prepare pnpm@9.0.0 --activate
 pnpm install
@@ -121,13 +123,13 @@ describe('MyComponent', () => {
 
 两种方式二选一：
 
-1) 本仓库自带原生 Git hook（轻量推荐）
+1. 本仓库自带原生 Git hook（轻量推荐）
 
 ```bash
 bash scripts/install-git-hooks.sh   # 安装 pre-commit（仅跑 pnpm run fmt:check）
 ```
 
-2) 如果你已使用 pre-commit 框架，可继续沿用（需自行维护配置）
+2. 如果你已使用 pre-commit 框架，可继续沿用（需自行维护配置）
 
 - 代码风格：Prettier（见 `.prettierignore`）
 - 统一包管理：`packageManager: pnpm@9.0.0`（Corepack）

@@ -7,9 +7,12 @@ export default async function globalTeardown() {
   if (fs.existsSync(pidFile)) {
     const pid = Number(fs.readFileSync(pidFile, 'utf8') || 0)
     if (pid) {
-      try { process.kill(pid, 'SIGTERM') } catch {}
+      try {
+        process.kill(pid, 'SIGTERM')
+      } catch {}
     }
-    try { fs.unlinkSync(pidFile) } catch {}
+    try {
+      fs.unlinkSync(pidFile)
+    } catch {}
   }
 }
-

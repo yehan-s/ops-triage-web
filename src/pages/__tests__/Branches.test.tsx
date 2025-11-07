@@ -1,5 +1,5 @@
 import { render, screen, waitFor, fireEvent } from '@testing-library/react'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { vi } from 'vitest'
 import Branches from '../../pages/Branches'
@@ -7,13 +7,13 @@ import { message } from 'antd'
 
 const qc = new QueryClient()
 function wrapper(ui: React.ReactElement) {
+  const router = createMemoryRouter([{ path: '/git/branches/:projectId', element: ui }], {
+    initialEntries: ['/git/branches/123'],
+    future: { v7_startTransition: true, v7_relativeSplatPath: true },
+  })
   return render(
     <QueryClientProvider client={qc}>
-      <MemoryRouter initialEntries={['/git/branches/123']}>
-        <Routes>
-          <Route path="/git/branches/:projectId" element={ui} />
-        </Routes>
-      </MemoryRouter>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   )
 }

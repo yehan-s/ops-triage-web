@@ -3,6 +3,9 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
+// API 端口：优先环境变量 E2E_API_PORT；否则尝试 PORT；最后默认 7000
+const e2eApiPort = process.env.E2E_API_PORT || process.env.PORT || '7000'
+
 export default defineConfig({
   testDir: './tests/e2e',
   /* Run tests in files in parallel */
@@ -65,7 +68,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm dev',
+    // 将 API 基地址通过环境变量注入 Vite，以便与 globalSetup 启动的后端端口一致
+    command: `VITE_API_BASE_URL=http://localhost:${e2eApiPort} pnpm dev`,
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
   },
