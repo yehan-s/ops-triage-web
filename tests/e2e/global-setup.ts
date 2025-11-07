@@ -42,8 +42,18 @@ export default async function globalSetup() {
   }
   fs.writeFileSync(path.join(dataDir, 'index.json'), JSON.stringify(idx))
 
-  // Spawn backend on可配置端口：优先 E2E_API_PORT，其次 server/.env 的 PORT，再次进程 PORT，默认 7000。
-  const apiPort = String(process.env.E2E_API_PORT || envVars.PORT || process.env.PORT || '7000')
+  // Load .env from server directory if exists
+  const envFile = path.join(serverRoot, '.env')
+  const envVars: Record<string, string> = {}
+  if (fs.existsSync(envFile)) {
+    const envContent = fs.readFileSync(envFile, 'utf8')
+    envContent.split('\n').forEach(line => {
+      const match = line.match(/^([^#=\s]+)=(.*)$/)
+      if (match) envVars[match[1]] = match[2].trim()
+    })
+  }
+  // Spawn backend on可配置端口：优先 E2E_API_PORT，其次 server/.env 的 PORT，再次进程 PORT，默认 7001。
+  const apiPort = String(process.env.E2E_API_PORT || envVars.PORT || process.env.PORT || '7001')
   const metricsUrl = `http://localhost:${apiPort}/metrics`
   try {
     // 快速探测：若已有服务，直接复用
@@ -60,16 +70,6 @@ export default async function globalSetup() {
   if (!fs.existsSync(tsxBin))
     throw new Error('[e2e] missing server deps. Run pnpm -C server install')
   const entry = path.join(serverRoot, 'src', 'api', 'fastify-server.ts')
-  // Load .env from server directory if exists
-  const envFile = path.join(serverRoot, '.env')
-  const envVars: Record<string, string> = {}
-  if (fs.existsSync(envFile)) {
-    const envContent = fs.readFileSync(envFile, 'utf8')
-    envContent.split('\n').forEach(line => {
-      const match = line.match(/^([^#=\s]+)=(.*)$/)
-      if (match) envVars[match[1]] = match[2].trim()
-    })
-  }
   const child = spawn(tsxBin, [entry], {
     cwd: serverRoot,
     stdio: 'ignore',

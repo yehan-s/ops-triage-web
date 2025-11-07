@@ -3,7 +3,7 @@
 ## 目标
 
 - 控制台 UI：选择 GitLab 项目/分支触发索引；在“URL 分诊”页调用后端 `/triage` 展示结果
-- 与后端的契约：通过 `VITE_API_BASE_URL` 指向 server（Fastify@7000），调用 `/git/*` 与 `/triage`
+- 与后端的契约：通过 `VITE_API_BASE_URL` 指向 server（Fastify@7001），调用 `/git/*` 与 `/triage`
 
 ## 技术栈
 
@@ -21,7 +21,7 @@ corepack enable && corepack prepare pnpm@9.0.0 --activate
 
 # 安装依赖
 pnpm install
-cp .env.example .env   # 确认 VITE_API_BASE_URL=http://localhost:7000
+cp .env.example .env   # 确认 VITE_API_BASE_URL=http://localhost:7001
 ```
 
 ## 开发与联调
@@ -31,7 +31,7 @@ cp .env.example .env   # 确认 VITE_API_BASE_URL=http://localhost:7000
 pnpm dev
 ```
 
-- 后端需在 7000 端口；跨域通过后端环境 `FRONTEND_ORIGIN=http://localhost:5173`
+- 后端需在 7001 端口；跨域通过后端环境 `FRONTEND_ORIGIN=http://localhost:5173`
 - 根目录也可一键联调：`bash scripts/dev.sh`（只用 pnpm）
 
 ## 测试
@@ -49,7 +49,7 @@ pnpm exec playwright install chromium   # 首次
 pnpm e2e
 ```
 
-E2E 会在 globalSetup 启动真实后端（Fastify@7000）并写入最小 index.json；流程用例覆盖：
+E2E 会在 globalSetup 启动真实后端（Fastify@7001，或由 `E2E_API_PORT` 指定）并写入最小 index.json；流程用例覆盖：
 
 - /triage 命中
 - 项目 → 分支 → API 索引 → 分诊

@@ -3,8 +3,8 @@ import { defineConfig, devices } from '@playwright/test'
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
-// API 端口：优先环境变量 E2E_API_PORT；否则尝试 PORT；最后默认 7000
-const e2eApiPort = process.env.E2E_API_PORT || process.env.PORT || '7000'
+// API 端口：优先环境变量 E2E_API_PORT；否则尝试 PORT；最后默认 7001
+const e2eApiPort = process.env.E2E_API_PORT || process.env.PORT || '7001'
 
 export default defineConfig({
   testDir: './tests/e2e',

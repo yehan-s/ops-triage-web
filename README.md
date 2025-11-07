@@ -25,7 +25,7 @@ pnpm -C ../server install
 pnpm e2e
 ```
 
-- 服务端对应：`VITE_API_BASE_URL=http://localhost:7000`（与后端端口一致）
+- 服务端对应：`VITE_API_BASE_URL=http://localhost:7001`（与后端端口一致）
 - 一键联调：参考根目录 `scripts/dev.sh` 同时启动 server+web
 
 ## 主要页面
