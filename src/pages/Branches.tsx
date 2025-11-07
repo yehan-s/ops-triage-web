@@ -2,10 +2,11 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { post } from '../lib/api'
-import { Button, List, Space, Typography, message } from 'antd'
+import { Button, List, Space, Typography, message, Input } from 'antd'
 
 export default function Branches() {
   const { projectId } = useParams<{ projectId: string }>()
+  const [search, setSearch] = React.useState('')
   const { data, isLoading, refetch } = useQuery({
     queryKey: ['branches', projectId],
     queryFn: () => post<{ branches: any[] }>('/git/branches', { projectId }),
@@ -19,15 +20,31 @@ export default function Branches() {
       ),
   })
 
+  // 客户端过滤分支
+  const filteredBranches = React.useMemo(() => {
+    if (!search.trim()) return data?.branches || []
+    const searchLower = search.toLowerCase()
+    return (data?.branches || []).filter((b: any) => b.name.toLowerCase().includes(searchLower))
+  }, [data?.branches, search])
+
   return (
     <Space direction="vertical" style={{ padding: 24, width: '100%' }}>
       <Typography.Title level={4}>选择分支（项目 {projectId}）</Typography.Title>
-      <Button onClick={() => refetch()} loading={isLoading}>
-        刷新
-      </Button>
+      <Space>
+        <Input
+          placeholder="搜索分支名称"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ width: 320 }}
+          allowClear
+        />
+        <Button onClick={() => refetch()} loading={isLoading}>
+          刷新
+        </Button>
+      </Space>
       <List
         bordered
-        dataSource={data?.branches || []}
+        dataSource={filteredBranches}
         renderItem={(b: any) => (
           <List.Item
             actions={[

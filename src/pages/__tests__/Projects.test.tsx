@@ -37,7 +37,7 @@ describe('Projects page', () => {
 
     renderWithRQ(<Projects />)
     await screen.findByText(/后端Token：已配置/)
-    fireEvent.change(screen.getByPlaceholderText('搜索'), { target: { value: 'a' } })
+    fireEvent.change(screen.getByPlaceholderText(/搜索/), { target: { value: 'a' } })
     fireEvent.click(screen.getByRole('button', { name: /查.?询/ }))
     await waitFor(() => expect(screen.getByText('a/b')).toBeInTheDocument())
   })

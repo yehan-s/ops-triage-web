@@ -51,6 +51,7 @@ jobs:
         with:
           repository: yehan-s/ops-triage-server
           path: server
+          token: ${{ secrets.PAT_TOKEN }}
       - name: Install server deps
         run: pnpm -C server install --frozen-lockfile=false
       - name: Run E2E

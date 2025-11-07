@@ -16,6 +16,9 @@ export default function IndexPage() {
         <Link to="/upload">
           <Button>离线包上传</Button>
         </Link>
+        <Link to="/offline">
+          <Button>离线项目管理</Button>
+        </Link>
       </Space>
     </Space>
   )
