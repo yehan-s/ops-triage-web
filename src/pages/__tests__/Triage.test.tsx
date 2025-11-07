@@ -16,10 +16,16 @@ describe('Triage page', () => {
 
   it('submits and renders JSON on success', async () => {
     const resp = { routeMatch: { pattern: '/api/foo' }, domain: 'be', confidence: 0.9 }
-    vi.spyOn(global, 'fetch').mockResolvedValueOnce({
-      ok: true,
-      json: async () => resp,
-    } as any)
+    vi.spyOn(global, 'fetch').mockImplementation(async (input: any) => {
+      const url = String(input || '')
+      if (url.endsWith('/offline/projects')) {
+        return { ok: true, json: async () => ({ projects: [] }) } as any
+      }
+      if (url.endsWith('/triage')) {
+        return { ok: true, json: async () => resp } as any
+      }
+      throw new Error('unexpected fetch ' + url)
+    })
 
     renderWithRQ(<Triage />)
     fireEvent.change(screen.getByPlaceholderText('URL'), { target: { value: '/api/foo' } })
@@ -29,7 +35,16 @@ describe('Triage page', () => {
   })
 
   it('shows error when API fails', async () => {
-    vi.spyOn(global, 'fetch').mockResolvedValueOnce({ ok: false, text: async () => 'Bad' } as any)
+    vi.spyOn(global, 'fetch').mockImplementation(async (input: any) => {
+      const url = String(input || '')
+      if (url.endsWith('/offline/projects')) {
+        return { ok: true, json: async () => ({ projects: [] }) } as any
+      }
+      if (url.endsWith('/triage')) {
+        return { ok: false, text: async () => 'Bad' } as any
+      }
+      throw new Error('unexpected fetch ' + url)
+    })
     renderWithRQ(<Triage />)
     fireEvent.change(screen.getByPlaceholderText('URL'), { target: { value: '/bad' } })
     fireEvent.click(screen.getByRole('button', { name: /分.?析/ }))
