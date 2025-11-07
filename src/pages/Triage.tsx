@@ -26,7 +26,10 @@ export default function Triage() {
           style={{ minWidth: 320 }}
           value={project}
           onChange={setProject}
-          options={(projects?.projects || []).map(p => ({ value: p.key, label: p.alias || p.key }))}
+          options={(projects?.projects || []).map(p => ({
+            value: p.key,
+            label: (p.alias || p.key) + (p.branch ? ` (${p.branch})` : ''),
+          }))}
         />
       </Space>
       <Input.TextArea
