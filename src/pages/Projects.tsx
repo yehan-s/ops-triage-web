@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { post, get } from '../lib/api'
 import { Button, Input, Space, Table, Typography, Alert } from 'antd'
+import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
 export default function Projects() {
@@ -32,9 +33,19 @@ export default function Projects() {
           onChange={e => setSearch(e.target.value)}
           style={{ width: 320 }}
         />
-        <Button type="primary" onClick={() => refetch()} loading={isFetching}>
+        <Button
+          type="primary"
+          onClick={() => refetch()}
+          loading={isFetching}
+          disabled={!cfg?.tokenPresent}
+        >
           查询
         </Button>
+        {!cfg?.tokenPresent && (
+          <Link to="/upload">
+            <Button type="default">使用离线模式（上传 ZIP）</Button>
+          </Link>
+        )}
       </Space>
       <Table
         rowKey={(r: any) => r.id}

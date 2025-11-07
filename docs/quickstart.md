@@ -77,3 +77,10 @@ bash scripts/install-git-hooks.sh
 - “后端 Token 未配置”：检查 server/.env 中 `GITLAB_ACCESS_TOKEN|GITLAB_TOKEN`
 - CORS 报错：server/.env 设置 `FRONTEND_ORIGIN=http://localhost:5173`
 - /triage 未命中：先在分支页执行 “API 索引”，或手动写入最小 index.json
+
+## 离线模式（无 GitLab/VPN 环境）
+
+- 无需配置任何 GitLab Token，使用两种方式之一生成/上传索引：
+  - 前端：进入“离线包上传”页（/upload），选择一个或多个项目 ZIP 包，点击开始索引
+  - 后端脚本：`pnpm -C server run index-local -- /path/to/foo.zip [/path/to/bar.zip]`，会在 `server/data/index.json` 写入索引
+- 索引完成后，直接在 “URL 分诊” 页（/triage）输入 URL 进行分诊

@@ -13,6 +13,9 @@ export default function IndexPage() {
         <Link to="/triage">
           <Button>URL 分诊</Button>
         </Link>
+        <Link to="/upload">
+          <Button>离线包上传</Button>
+        </Link>
       </Space>
     </Space>
   )

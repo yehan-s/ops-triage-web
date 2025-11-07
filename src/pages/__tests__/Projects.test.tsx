@@ -1,14 +1,18 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { vi } from 'vitest'
 import Projects from '../../pages/Projects'
 
 const qc = new QueryClient()
 function renderWithRQ(ui: React.ReactElement) {
+  const router = createMemoryRouter([{ path: '/git/projects', element: ui }], {
+    initialEntries: ['/git/projects'],
+    future: { v7_startTransition: true, v7_relativeSplatPath: true },
+  })
   return render(
     <QueryClientProvider client={qc}>
-      <MemoryRouter initialEntries={['/git/projects']}>{ui}</MemoryRouter>
+      <RouterProvider router={router} />
     </QueryClientProvider>
   )
 }
