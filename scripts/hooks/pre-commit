@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
-# 轻量 pre-commit：仅检查 Prettier 格式，避免一次性大改动
+# 统一工作流：先自动修复，再校验；在当前 repo 根执行
 set -euo pipefail
 
 RED='\033[31m'; NC='\033[0m'
-echo "[pre-commit] Running Prettier check..."
+
+echo "[pre-commit] Formatting..."
+pnpm run -s fmt
+
+echo "[pre-commit] Checking formatting..."
 if ! pnpm run -s fmt:check; then
   echo -e "${RED}[pre-commit] Prettier check failed. Run: pnpm run fmt${NC}"
   exit 1
 fi
-echo "[pre-commit] OK"
 
+echo "[pre-commit] OK"
